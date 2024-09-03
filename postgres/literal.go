@@ -11,6 +11,11 @@ func Bool(value bool) BoolExpression {
 	return CAST(jet.Bool(value)).AS_BOOL()
 }
 
+// BoolArray creates new bool array literal expression
+func BoolArray(elements []bool) BoolArrayExpression {
+	return jet.BoolArray(elements)
+}
+
 // Int is constructor for 64 bit signed integer expressions literals.
 var Int = jet.Int
 
@@ -60,13 +65,14 @@ var Float = jet.Float
 // Decimal creates new float literal expression
 var Decimal = jet.Decimal
 
-func StringArray(elements []string) StringArrayExpression {
-	return jet.StringArray(elements)
-}
-
 // String creates new string literal expression
 func String(value string) StringExpression {
 	return CAST(jet.String(value)).AS_TEXT()
+}
+
+// StringArray creates new string array literal expression
+func StringArray(elements []string) StringArrayExpression {
+	return jet.StringArray(elements)
 }
 
 // Json creates new json literal expression
