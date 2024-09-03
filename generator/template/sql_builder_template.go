@@ -149,7 +149,8 @@ func getSqlBuilderColumnType(columnMetaData metadata.Column) string {
 		return "String"
 	}
 
-	switch strings.ToLower(columnMetaData.DataType.Name) {
+	typeName := columnMetaData.DataType.Name
+	switch strings.ToLower(typeName) {
 	case "boolean", "bool":
 		return "Bool"
 	case "smallint", "integer", "bigint", "int2", "int4", "int8",
@@ -189,8 +190,10 @@ func getSqlBuilderColumnType(columnMetaData metadata.Column) string {
 		return "Int8Range"
 	case "numrange":
 		return "NumericRange"
+	case "text[]":
+		return "StringArray"
 	default:
-		fmt.Println("- [SQL Builder] Unsupported sql column '" + columnMetaData.Name + " " + columnMetaData.DataType.Name + "', using StringColumn instead.")
+		fmt.Println("- [SQL Builder] Unsupported sql column '" + columnMetaData.Name + " " + typeName + "', using StringColumn instead.")
 		return "String"
 	}
 }
