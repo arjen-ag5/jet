@@ -6,6 +6,7 @@ import (
 	"github.com/go-jet/jet/v2/internal/utils/dbidentifier"
 	"github.com/google/uuid"
 	"github.com/jackc/pgtype"
+	"github.com/lib/pq"
 	"path"
 	"reflect"
 	"strings"
@@ -249,7 +250,7 @@ func getUserDefinedType(column metadata.Column) string {
 	switch column.DataType.Kind {
 	case metadata.EnumType:
 		return dbidentifier.ToGoIdentifier(column.DataType.Name)
-	case metadata.UserDefinedType, metadata.ArrayType:
+	case metadata.UserDefinedType:
 		return "string"
 	}
 
@@ -333,6 +334,14 @@ func toGoType(column metadata.Column) interface{} {
 		return pgtype.Int8range{}
 	case "numrange":
 		return pgtype.Numrange{}
+	case "bool[]":
+		return pq.BoolArray{}
+	case "int32[]":
+		return pq.Int32Array{}
+	case "int64[]":
+		return pq.Int64Array{}
+	case "text[]":
+		return pq.StringArray{}
 	default:
 		fmt.Println("- [Model      ] Unsupported sql column '" + column.Name + " " + column.DataType.Name + "', using string instead.")
 		return ""
