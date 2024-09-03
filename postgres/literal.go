@@ -60,6 +60,10 @@ var Float = jet.Float
 // Decimal creates new float literal expression
 var Decimal = jet.Decimal
 
+func StringArray(elements []string) StringArrayExpression {
+	return jet.StringArray(elements)
+}
+
 // String creates new string literal expression
 func String(value string) StringExpression {
 	return CAST(jet.String(value)).AS_TEXT()
