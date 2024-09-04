@@ -3,9 +3,7 @@ package postgres
 import (
 	"context"
 	"database/sql"
-	"encoding/json"
 	"github.com/lib/pq"
-	"io/ioutil"
 	"testing"
 	"time"
 
@@ -2796,6 +2794,7 @@ ORDER BY actor.actor_id ASC, film.film_id ASC;
 	err := stmt.Query(db, &dest)
 	require.NoError(t, err)
 
+	//testutils.SaveJSONFile(dest, "./testdata/results/postgres/quick-start-dest.json")
 	testutils.AssertJSONFile(t, dest, "./testdata/results/postgres/quick-start-dest.json")
 
 	var dest2 []struct {
@@ -2808,16 +2807,8 @@ ORDER BY actor.actor_id ASC, film.film_id ASC;
 	err = stmt.Query(db, &dest2)
 	require.NoError(t, err)
 
+	//testutils.SaveJSONFile(dest, "./testdata/results/postgres/quick-start-dest2.json")
 	testutils.AssertJSONFile(t, dest2, "./testdata/results/postgres/quick-start-dest2.json")
-}
-
-func jsonSave(path string, v interface{}) {
-	jsonText, _ := json.MarshalIndent(v, "", "\t")
-
-	err := ioutil.WriteFile(path, jsonText, 0644)
-	if err != nil {
-		panic(err)
-	}
 }
 
 func TestQuickStartWithSubQueries(t *testing.T) {
