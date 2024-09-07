@@ -46,7 +46,7 @@ type cast interface {
 }
 
 type castArray interface {
-	AS_STRING() jet.ArrayExpression[StringExpression]
+	AS_STRING() jet.Array[StringExpression]
 }
 
 type castImpl struct {
