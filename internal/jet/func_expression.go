@@ -282,6 +282,19 @@ func OCTET_LENGTH(stringExpression StringOrBlobExpression) IntegerExpression {
 	return newIntegerFunc("OCTET_LENGTH", stringExpression)
 }
 
+// COLLATE overrides the collation of the string expression with the collation
+// identified by collationName. The collation name is serialized as SQL identifier
+// and quoted when necessary, so exact (case-sensitive) collation names can be used.
+func COLLATE(stringExpression StringExpression, collationName string) StringExpression {
+	return StringExp(NewBinaryOperatorExpression(stringExpression, collationIdentifier(collationName), "COLLATE"))
+}
+
+type collationIdentifier string
+
+func (c collationIdentifier) serialize(statement StatementType, out *SQLBuilder, options ...SerializeOption) {
+	out.WriteIdentifier(string(c))
+}
+
 // LOWER returns string expression in lower case
 func LOWER(stringExpression StringExpression) StringExpression {
 	return NewStringFunc("LOWER", stringExpression)
