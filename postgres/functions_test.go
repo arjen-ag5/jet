@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+func TestCOLLATE(t *testing.T) {
+	assertSerialize(t, COLLATE(table2ColStr, "de_DE"), `(table2.col_str COLLATE "de_DE")`)
+	assertSerialize(t, COLLATE(table2ColStr, "de-DE-x-icu"), `(table2.col_str COLLATE "de-DE-x-icu")`)
+	assertSerialize(t, COLLATE(table2ColStr, "C.UTF-8"), `(table2.col_str COLLATE "C.UTF-8")`)
+	assertSerialize(t, COLLATE(String("foo"), "ucs_basic").EQ(String("bar")),
+		`(($1::text COLLATE ucs_basic) = $2::text)`, "foo", "bar")
+}
+
 func TestROW(t *testing.T) {
 	assertSerialize(t, ROW(SELECT(Int(1))), `ROW((
      SELECT $1

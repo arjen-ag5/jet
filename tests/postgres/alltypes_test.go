@@ -644,6 +644,8 @@ func TestStringOperators(t *testing.T) {
 		LOWER(Char(4)("length")),
 		UPPER(AllTypes.Char),
 		UPPER(VarChar()("upper")),
+		COLLATE(AllTypes.Text, "C").EQ(AllTypes.Char),
+		COLLATE(AllTypes.VarCharPtr, "ucs_basic"),
 		BTRIM(AllTypes.VarChar),
 		BTRIM(Char()("btrim")),
 		BTRIM(AllTypes.VarChar, String("AA")),

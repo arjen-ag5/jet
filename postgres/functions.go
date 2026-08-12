@@ -161,6 +161,11 @@ var CHAR_LENGTH = jet.CHAR_LENGTH
 // OCTET_LENGTH returns number of bytes in string expression
 var OCTET_LENGTH = jet.OCTET_LENGTH
 
+// COLLATE overrides the collation of the string expression with the collation
+// identified by collationName, e.g. COLLATE(str, "de-DE-x-icu").
+// https://www.postgresql.org/docs/current/collation.html
+var COLLATE = jet.COLLATE
+
 // LOWER returns string expression in lower case
 var LOWER = jet.LOWER
 
